@@ -1,5 +1,5 @@
 # Python Animation Import / Export tool for Autodesk Maya
-
+As of October 18, 2018, this bitbucket repository is the official PAIE host, where you will find the latest version. Feel free to contribute.
 
 
 ## What PAIE can do for you
