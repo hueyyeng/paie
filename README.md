@@ -41,59 +41,58 @@ Feel free to contribute
 
 
 ## Update Log
-Update Log:
-  13-04-2012: v1.3.3 by Jakob Welner
-      - Cleaned up old hacks, browse dialog/mel callback
-	  - Removed mel Callback hack as the Undo bug forcing it has been fixed. Don't know when tho.
+#####  13-04-2012: v1.3.3 by Jakob Welner
+- Cleaned up old hacks, browse dialog/mel callback
+- Removed mel Callback hack as the Undo bug forcing it has been fixed. Don't know when tho.
 
-  21-01-2012: v1.3.2 by Jakob Welner
-      - Fixed some OSX bugs
-      - Streamlined OS dependent operations
+#####  21-01-2012: v1.3.2 by Jakob Welner
+- Fixed some OSX bugs
+- Streamlined OS dependent operations
 
-  01-04-2011: v1.3.1 by Jakob Welner
-      - changed PAIE title to correct version
-      - fixed a slight issue with selection after deleting files
+#####  01-04-2011: v1.3.1 by Jakob Welner
+- changed PAIE title to correct version
+- fixed a slight issue with selection after deleting files
 
-  30-03-2011: v1.3.0 by Jakob Welner
-      - fixed browse-button for both windows and linux
-      - new Export All Animation and Import to original position
-      - fixed error on deleting files in export mode
-      - fixed some GUI issues
-      - fixed infinity again?
-      - added OMT header for menu support with OMToolbox (first 4 lines)
-      - supporting boolean attrs - didn't know that this wasn't working
-      - returns instance on initiating GUI, in case anyone wanna use it?
-      - including stack trace in error msgs
-      - sorting file lists alphabetically
-      - on Import prompting whether to change rotation order according to source
-		Prints out affected controls to the script editor
+#####  30-03-2011: v1.3.0 by Jakob Welner
+- fixed browse-button for both windows and linux
+- new Export All Animation and Import to original position
+- fixed error on deleting files in export mode
+- fixed some GUI issues
+- fixed infinity again?
+- added OMT header for menu support with OMToolbox (first 4 lines)
+- supporting boolean attrs - didn't know that this wasn't working
+- returns instance on initiating GUI, in case anyone wanna use it?
+- including stack trace in error msgs
+- sorting file lists alphabetically
+- on Import prompting whether to change rotation order according to source
+- Prints out affected controls to the script editor
 
-  11-09-2008: v1.2.0 by Jakob Welner
-      - import now only matches to obj name - not path - and only accepts unique naming
-      - undo when importing has been fixed - was a bitch so you'd better be glad
-      - errors are now more obvious on a popup window instead of the response line
-      - updated file structure - NOT BACKWARD COMPATIBLE!!
-      - listed framerate now actually works and is reliable
-      - pose imports now only checks current frame for existing keys that will be overwritten
-      - importing onto locked and hidden attributes no longer fails
-      - the normal minor updates here and there
-      - more stable GUI on linux
+#####  11-09-2008: v1.2.0 by Jakob Welner
+- import now only matches to obj name - not path - and only accepts unique naming
+- undo when importing has been fixed - was a bitch so you'd better be glad
+- errors are now more obvious on a popup window instead of the response line
+- updated file structure - NOT BACKWARD COMPATIBLE!!
+- listed framerate now actually works and is reliable
+- pose imports now only checks current frame for existing keys that will be overwritten
+- importing onto locked and hidden attributes no longer fails
+- the normal minor updates here and there
+- more stable GUI on linux
 
-  04-04-2008: v1.1.2 by Jakob Welner
-      - minor refinements
-      - fixed some linux issues: ProgressHandler missing 'next()' method
-      - fixed infinity transfer on namespaced objects
-      - minor change in UI - replaced export 'pose only' with radioButtons (animation/pose)
+#####  04-04-2008: v1.1.2 by Jakob Welner
+- minor refinements
+- fixed some linux issues: ProgressHandler missing 'next()' method
+- fixed infinity transfer on namespaced objects
+- minor change in UI - replaced export 'pose only' with radioButtons (animation/pose)
 
-  02-04-2008: v1.1.1 by Jakob Welner
-      - fixed some stuff when handling paths with restricted permissions
+#####  02-04-2008: v1.1.1 by Jakob Welner
+- fixed some stuff when handling paths with restricted permissions
 
-  02-04-2008: v1.1.0 by Jakob Welner
-      - enabled deleting files from list using the delete key
-      - autoselect namespace if there is only one
-      - fixed tangentType transfer
-      - fixed some warning messages
-      - fixed inifinity transfer
+#####  02-04-2008: v1.1.0 by Jakob Welner
+- enabled deleting files from list using the delete key
+- autoselect namespace if there is only one
+- fixed tangentType transfer
+- fixed some warning messages
+- fixed inifinity transfer
 
-  27-03-2008: v1.0.0 by Jakob Welner
-      - Initial release
+#####  27-03-2008: v1.0.0 by Jakob Welner
+- Initial release
