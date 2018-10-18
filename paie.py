@@ -15,7 +15,7 @@ Description:
 	PAIE is a python based Autodesk Maya tool for handling attribute
 	transfer in version 8.5 and later. 
 
-	Activate interface by typing "paie.GUI()" on a python commandLine
+	Activate interface by typing "import paie; paie.GUI()" on a python commandLine
 		
 	Features:
 	 	General functionality:
@@ -55,6 +55,10 @@ License:
 	
 ______________________________________________
 Update Log:
+  13-04-2012: v1.3.3 by Jakob Welner
+      - Cleaned up old hacks, browse dialog/mel callback
+	  - Removed mel Callback hack as the Undo bug forcing it has been fixed. Don't know when tho.
+	  
   21-01-2012: v1.3.2 by Jakob Welner
       - Fixed some OSX bugs
       - Streamlined OS dependent operations
@@ -225,7 +229,7 @@ except ImportError:
 
 # Structure Version
 structVersion = 1.0
-paieVersion = '1.3.2'
+paieVersion = '1.3.3'
 
 
 platformCase = None
@@ -371,8 +375,8 @@ class DataWrapper:
 	def getData(self, selList, startFrame, endFrame, dataType, attrsType, comments):
 		'''
 		selList:    			List of selected objects
-		startFrame: 			guess
-		endFrame:   			guess
+		startFrame: 			you guess
+		endFrame:   			same
 		dataType:   			'pose'/'anim'
 		attrsType:  			'all'/'keyable' (save all attributes or only keyables)
 		comments:   			string
@@ -793,7 +797,7 @@ class DataWrapper:
 						# Set Keys
 						for key in self.dataObj.getAttrKeyID(objID , attr):
 	
-							### line 773: This is hacked. Change back soon!
+							### This is hacked. Change back soon!
 							######################################################################################################
 							
 							frameNr = float(self.dataObj.getKeyAnimData(objID, attr, key, 'time')) + animOffset
@@ -1182,7 +1186,8 @@ class ProgressHandler:
 		
 		
 		
-		
+"""	
+# Wrapping python calls in MEL to counter an undo bug that otherwise logs all subroutines as separate undo's
 class Callback(object):
 	
 	_callData = None
@@ -1209,7 +1214,7 @@ class Callback(object):
 			mm.eval('python("Callback._doCall()")')
 		#'''
 		return Callback._callData
-
+"""
 		
 		
 		
@@ -1456,8 +1461,8 @@ class PaieGUI:
 			
 			mc.text(label="File Info", font="boldLabelFont")
 			self.uiPath_fileInfo[index] = mc.scrollField( height = self.listHeight - 28, editable=False, ww=1, font="smallFixedWidthFont")
-			mc.button(label = "Import", align = "center", command = Callback(self.importButton) )
-			#mc.button(label="Import", align="center", command = __name__ + '.importButton("' + str(self.uiPath_fileList[ index ]) + '", "' + str(self.uiPath_namespaceList[ index ]) + '", "' + str(self.optVar_path) + '", "' + str(self.uiPath_selectOrder[index]) + '", ' + str(index) + ', "' + str(self.fileExt) + '")' )
+			#mc.button(label = "Import", align = "center", command = Callback(self.importButton) ) # Using mel wrapper callback to fix undo bug in previous Maya versions
+			mc.button(label = "Import", align = "center",command= lambda *args: self.importButton() )
 		
 			mc.formLayout(listForm, edit=True, 
 				attachForm=[
@@ -1689,23 +1694,6 @@ class PaieGUI:
 	### DATA MANIPULATION 
 	############################################################################
 
-	'''
-        # No longer in use
-	def normalizePath(self, path):
-		drive, splitPath = os.path.splitdrive(path)
-		path = splitPath.replace("\\", "/")
-		fixedPath = drive + "/"
-		for split in path.split("/"):
-			if split != "":
-				fixedPath += split + "/"
-				
-		if fixedPath != "":
-			return fixedPath
-		else:
-			raise TypeError, "# PaieGUI.normalizePath >> output string is empty. Input type: " + path
-        '''
-		
-			
 	def deleteSelectedFile(self):
 		dirPath = self.getCurrentPath()
 		filename = mc.textScrollList( self.uiPath_fileList[ self.currentTab ], query=True, selectItem=True )[0]
@@ -1756,11 +1744,6 @@ class PaieGUI:
 			print "# PaieGUI.listPaieFiles >> No directory matching path", 
 			return []
 		
-		
-		
-	def applyBrowsePath(self, *args): # catch def for windows file browser. Can maybe be omitted in python though
-		self.setNewPath( args[0] )
-		
 	
 		
 		
@@ -1805,9 +1788,17 @@ class PaieGUI:
 		
 		
 	def browseFolders(self):
-
+		# Using FileBrowserDialog instead of FileDialog2 as I can't seem to select folders with fileDialog2
+		
+		newPath = mc.fileDialog2( fileMode=3, okCaption="Choose", startingDirectory=self.getCurrentPath() )[0]
+		self.setNewPath( newPath )
+		
+	"""
+	# Deprecated. Hack to get replace fileDialog2
+	# Deprecated. Used in relation to fileBrowserDialog as a replacement to fileDialog2 which didn't work previously
 		if platformCase == "ms":
 			version = mc.about(version=True)
+			mc.fileDialog2( fileMode=3, okCaption="Choose" )
 			
 			print "# PaieGUI.browseFolders >> Maya version: ", version
 			mayaWorkspace = mc.workspace(q=True, dir=True)
@@ -1821,8 +1812,14 @@ class PaieGUI:
 			self.fileBrowserMelWrap()
 			mc.workspace(dir= mayaWorkspace)
 		
-		
+	
+
 	def fileBrowserMelWrap(self):
+		'''
+		This exists because fileBrowserDialog return value can't be caught by python 
+		so I've had to define catching proc in Mel that returns value back to python.
+		Stupid...
+		'''
 		
 		pyCodeList = []
 		
@@ -1845,6 +1842,11 @@ class PaieGUI:
 		mm.eval( makeCallbackProc_evalString )
 		mm.eval('fileBrowser "myCallback" "Select Directory" "" 4;')
 		
+		
+	# Deprecated. Catch procedure to get return data from fileBrowserDialog
+	def applyBrowsePath(self, *args): # catch def for windows file browser. Can maybe be omitted in python though
+		self.setNewPath( args[0] )
+	"""
 	
 		
 				
