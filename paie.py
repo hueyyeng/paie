@@ -1012,7 +1012,7 @@ class PaieGUI:
             mc.deleteUI(guiName)
             self.resetUiPaths()
 
-        mc.window(guiName, t="PAIE - Python Attribute Import/Export, v" + paieVersion)
+        mc.window(guiName, t="PAIE 3 - Python Attribute Import/Export, v" + paieVersion)
         self.uiPath_mainForm = mc.formLayout(numberOfDivisions=100)
 
         self.uiPath_topBar = mc.rowLayout(
