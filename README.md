@@ -1,8 +1,18 @@
 # Python Animation Import / Export tool for Autodesk Maya
-As of October 18, 2018, this bitbucket repository is the official PAIE host, where you will find the latest version. Feel free to contribute.
 
+## For Maya 2022 only!
+
+**Forked by Huey Yeng for Maya 2022.3 which uses Python 3.7.7.**
+
+Originally written by Jakob Welner which can be found here: https://bitbucket.org/jakobwelner/paie/
+
+This is a bare minimum port that fulfill the basic requirements of the animators who relies on this tool but unable to use it for projects using Maya 2022.
+
+As this script is already more than 10 years old since the last official update, feel free to create pull requests if there is edge cases that was not caught from my happy flow QA testing. 
 
 ## What PAIE can do for you
+As of October 18, 2018, this bitbucket repository is the official PAIE host, where you will find the latest version. Feel free to contribute.
+
 PAIE (Python Attribute Import/Export) is a Maya based animation transfer tool which lets you save out animation or poses to a file and import them again onto same or similar characters/object allowing you to transfer animation freely and share between colleagues
 
 ## How to install it
